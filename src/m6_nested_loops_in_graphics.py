@@ -3,15 +3,15 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Josiah Hasegawa.
+"""  # DO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
+    #run_test_draw_L()
     run_test_draw_wall_on_right()
 
 
@@ -80,10 +80,53 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DO: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    circle.attach_to(window)
+    center = circle.center
+    radius = circle.radius
 
+    for k in range(r):
+        center.y = center.y + radius*2
+        c1 = rg.Circle(center, radius)
+        c1.fill_color = circle.fill_color
+        c1.attach_to(window)
+        for j in range(3):
+            center.x = center.x + 2*radius*(j)
+            c2 = rg.Circle(center, radius)
+            c2.fill_color = circle.fill_color
+            c2.attach_to(window)
+            center.x = center.x - 2*radius*(j)
+            window.render()
+
+    for h in range(3):
+        center.y = center.y + radius * 2
+        c1 = rg.Circle(center, radius)
+        c1.fill_color = circle.fill_color
+        c1.attach_to(window)
+        for g in range(3):
+            center.x = center.x + 2 * radius * (g)
+            c2 = rg.Circle(center, radius)
+            c2.fill_color = circle.fill_color
+            c2.attach_to(window)
+            center.x = center.x - 2 * radius * (g)
+            window.render()
+    center.y = center.y + radius*2
+
+    for h in range(3):
+        center.y = center.y - radius * 2
+        c1 = rg.Circle(center, radius)
+        c1.fill_color = circle.fill_color
+        c1.attach_to(window)
+        for g in range(c):
+            center.x = center.x + 2 * radius * (g+3)
+            c2 = rg.Circle(center, radius)
+            c2.fill_color = circle.fill_color
+            c2.attach_to(window)
+            center.x = center.x - 2 * radius * (g+3)
+            window.render()
+            #aaaahhhhh frick, that was way to long!!! how do i make it shorter?!?!?
 
 def run_test_draw_wall_on_right():
     """ Tests the    draw_wall_on_right    function. """
@@ -121,9 +164,32 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DO: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+
+    h = rectangle.get_height()
+    w = rectangle.get_width()
+    c1 = rectangle.corner_1
+    c2 = rectangle.corner_2
+    for k in range(n):
+        rect1 = rg.Rectangle(c1, c2)
+        rect1.attach_to(window)
+        window.render(0.1)
+        c1.y = c1.y + h
+        c2.y = c2.y + h
+        for j in range(k):
+            c1.x = c1.x - w*(j+1)
+            c2.x = c2.x - w*(j+1)
+            c1.y = c1.y - h
+            c2.y = c2.y - h
+            rect2 = rg.Rectangle(c1, c2)
+            rect2.attach_to(window)
+            window.render(0.1)
+            c1.x = c1.x + w *(j+1)
+            c2.x = c2.x + w *(j+1)
+            c1.y = c1.y + h
+            c2.y = c2.y + h
 
 
 # ----------------------------------------------------------------------
